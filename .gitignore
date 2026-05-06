@@ -1,0 +1,12 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Data (large, downloadable)
+data/
+
+# OS
+.DS_Store

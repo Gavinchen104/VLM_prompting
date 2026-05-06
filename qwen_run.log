@@ -1,0 +1,10 @@
+Manifest: pilot_manifest_mini.csv (7 images)
+Model:    mlx-community/Qwen2.5-VL-3B-Instruct-4bit
+Prompts:  ['P1', 'P2', 'P3', 'P4']
+Total inferences: 28
+Loading mlx-community/Qwen2.5-VL-3B-Instruct-4bit ...
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files: 100%|██████████| 11/11 [00:00<00:00, 9760.39it/s]
+Model loaded in 14.8s
+Inferences:   0%|          | 0/28 [00:00<?, ?it/s]Inferences:   4%|▎         | 1/28 [00:03<01:32,  3.43s/it]Inferences:   7%|▋         | 2/28 [00:09<02:13,  5.12s/it]Inferences:  11%|█         | 3/28 [00:11<01:30,  3.64s/it]Inferences:  14%|█▍        | 4/28 [00:16<01:43,  4.33s/it]Inferences:  18%|█▊        | 5/28 [00:19<01:21,  3.52s/it]Inferences:  21%|██▏       | 6/28 [00:25<01:38,  4.49s/it]Inferences:  25%|██▌       | 7/28 [00:27<01:15,  3.61s/it]Inferences:  29%|██▊       | 8/28 [00:33<01:29,  4.49s/it]Inferences:  32%|███▏      | 9/28 [00:35<01:10,  3.71s/it]Inferences:  36%|███▌      | 10/28 [00:41<01:20,  4.49s/it]Inferences:  39%|███▉      | 11/28 [00:43<01:02,  3.69s/it]Inferences:  43%|████▎     | 12/28 [00:49<01:07,  4.25s/it]Inferences:  46%|████▋     | 13/28 [00:51<00:53,  3.58s/it]Inferences:  50%|█████     | 14/28 [00:56<00:58,  4.20s/it]Inferences:  54%|█████▎    | 15/28 [00:58<00:45,  3.51s/it]Inferences:  57%|█████▋    | 16/28 [01:04<00:51,  4.30s/it]Inferences:  61%|██████    | 17/28 [01:07<00:41,  3.77s/it]Inferences:  64%|██████▍   | 18/28 [01:14<00:46,  4.62s/it]Inferences:  68%|██████▊   | 19/28 [01:16<00:36,  4.02s/it]Inferences:  71%|███████▏  | 20/28 [01:23<00:38,  4.82s/it]Inferences:  75%|███████▌  | 21/28 [01:26<00:30,  4.36s/it]Inferences:  79%|███████▊  | 22/28 [01:35<00:34,  5.76s/it]Inferences:  82%|████████▏ | 23/28 [01:38<00:24,  5.00s/it]Inferences:  86%|████████▌ | 24/28 [01:46<00:22,  5.63s/it]Inferences:  89%|████████▉ | 25/28 [01:49<00:15,  5.10s/it]Inferences:  93%|█████████▎| 26/28 [02:01<00:13,  6.90s/it]Inferences:  96%|█████████▋| 27/28 [02:04<00:06,  6.00s/it]Inferences: 100%|██████████| 28/28 [02:15<00:00,  7.32s/it]Inferences: 100%|██████████| 28/28 [02:15<00:00,  4.83s/it]
+
+Done. Wrote pilot_qwen.csv

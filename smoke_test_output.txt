@@ -1,0 +1,11 @@
+backend: mlx-vlm
+model: mlx-community/medgemma-4b-it-4bit
+image_id: ISIC_0024646
+true_label: akiec
+latency_s: 4.58
+parsed: nv (strict)
+
+--- raw output ---
+nv
+Final answer: nv
+

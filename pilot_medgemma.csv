@@ -1,0 +1,437 @@
+model,image_id,true_label,prompt_id,raw_output,latency_s
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P1,"nv
+Final answer: nv
+",4.51
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P2,"The image shows a relatively uniform, slightly mottled appearance with some areas of increased pigmentation and others of decreased pigmentation. There are no distinct structures like globules or a clear border.
+
+The top two candidate classes are:
+1.  mel: The mottled appearance and presence of pigment could be consistent with melanoma.
+2.  nv: The mottled appearance could be consistent with a nevus.
+
+Based on the description and the lack of clear structures, I will classify this as:
+Final answer: mel
+",6.70
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P3,"Final answer: mel
+",4.06
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P4,"The image shows a relatively uniform, diffuse pattern of color with some areas of increased pigmentation and some areas of decreased pigmentation. There are no distinct borders or structures.
+
+2.  The top two candidates are:
+    *   mel: The diffuse pattern of color could be consistent with a melanocytic nevus, but the lack of a clear border makes this less certain.
+    *   nv: A nevus is a benign mole, and the diffuse pattern could be consistent with this.
+
+Final answer: mel
+",6.97
+mlx-community/medgemma-4b-it-4bit,ISIC_0027753,akiec,P1,"nv
+",4.18
+mlx-community/medgemma-4b-it-4bit,ISIC_0027753,akiec,P2,"The image shows a mottled appearance with areas of different colors, including red and brown. There are some structures that resemble pigment networks, but they are not well-defined or organized.
+
+The top two candidate classes are:
+1.  mel: The mottled appearance and presence of pigment networks could be indicative of melanoma.
+2.  nv: The mottled appearance could be indicative of a nevus.
+
+Based on the image, I will classify it as:
+Final answer: mel
+",6.83
+mlx-community/medgemma-4b-it-4bit,ISIC_0027753,akiec,P3,"Final answer: mel
+",4.21
+mlx-community/medgemma-4b-it-4bit,ISIC_0027753,akiec,P4,"The image shows a mottled, irregular pattern of color with a lack of distinct borders and a homogeneous appearance. This pattern is not typical of a benign nevus, basal cell carcinoma, or actinic keratosis. The image also lacks the typical features of a blue-gray homogeneous structure, a blue-whitish structure, or a red, rolled border.
+
+2.  The image could be a melanocytic lesion (mel) or a non-melanocytic lesion (nv).
+
+Final answer: mel
+",6.63
+mlx-community/medgemma-4b-it-4bit,ISIC_0032404,akiec,P1,"Final answer: nv
+",4.35
+mlx-community/medgemma-4b-it-4bit,ISIC_0032404,akiec,P2,"The image shows a relatively uniform, slightly mottled appearance with some areas of increased pigmentation and others with less pigmentation. There are no obvious, well-defined structures like globules or a prominent pigment network. The overall pattern is not strongly suggestive of any specific lesion type.
+
+Top 2 candidate classes:
+1.  nv: The mottled appearance could be consistent with a nevus, although it's not a typical, well-defined nevus.
+2.  mel: The mottled appearance could be consistent with a melanocytic lesion, although it's not a typical, well-defined melanocytic lesion.
+
+Final answer: mel
+",7.42
+mlx-community/medgemma-4b-it-4bit,ISIC_0032404,akiec,P3,"Final answer: mel
+",4.13
+mlx-community/medgemma-4b-it-4bit,ISIC_0032404,akiec,P4,"The image shows a diffuse, homogeneous pinkish-red background with some scattered, irregular, and somewhat clustered structures. There are no distinct borders or significant asymmetry.
+
+Top 2 candidate diagnoses:
+1.  nv: The diffuse pinkish-red background and scattered structures could be consistent with a benign vascular nevus (NV).
+2.  vasc: The diffuse pinkish-red background and scattered structures could be consistent with a vascular lesion.
+
+Final answer: nv
+",6.51
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P1,"Final answer: nv
+",4.24
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P2,"The image shows a single, central, round structure with a distinct, well-defined border. There are no other obvious features like pigment networks, globules, or streaks.
+
+Top 2 candidate classes:
+1.  akiec: The single, round structure with a well-defined border could be a small, benign lesion.
+2.  nv: The single, round structure with a well-defined border could be a small, benign lesion.
+
+The image shows a single, round structure with a well-defined border, which is a common feature of benign lesions.
+
+Final answer: akiec
+",7.38
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P3,"Final answer: nv
+",4.24
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P4,"The image shows a single, central, round, red structure with a dark center, surrounded by a halo of lighter color. This is highly suggestive of a **v**ascular lesion.
+
+Final answer: vasc
+",5.41
+mlx-community/medgemma-4b-it-4bit,ISIC_0028486,bcc,P1,"Final answer: nv
+",4.59
+mlx-community/medgemma-4b-it-4bit,ISIC_0028486,bcc,P2,"The image shows a central area with a darker, more defined structure, surrounded by a lighter, more diffuse area. There are some fine, branching structures visible, but they are not very prominent.
+
+Top 2 candidate classes:
+1.  mel: The central area with a darker, more defined structure could be a melanocytic lesion.
+2.  nv: The image could be a nevus (mole) with a central area of increased pigmentation.
+
+Final answer: mel
+",7.54
+mlx-community/medgemma-4b-it-4bit,ISIC_0028486,bcc,P3,"Final answer: nv
+",5.35
+mlx-community/medgemma-4b-it-4bit,ISIC_0028486,bcc,P4,"The image shows a central area of increased pigmentation with a surrounding halo. This is a common feature of melanocytic nevi, but it can also be seen in other lesions. The image lacks significant asymmetry, and the border is not well defined.
+
+Top 2 candidate diagnoses:
+1.  mel: The central area of increased pigmentation with a surrounding halo is suggestive of a melanocytic nevus.
+2.  nv
+
+Final answer: mel
+",6.88
+mlx-community/medgemma-4b-it-4bit,ISIC_0026978,bcc,P1,"nv
+Final answer: nv
+",5.41
+mlx-community/medgemma-4b-it-4bit,ISIC_0026978,bcc,P2,"The image shows a lesion with a somewhat irregular border and a central area with a darker color. There are also some structures that resemble pigment networks and globules.
+
+Top 2 candidate classes:
+1.  mel: The presence of pigment networks and globules suggests a melanocytic lesion.
+2.  nv: The irregular border and pigment network could be indicative of a nevus.
+
+Based on the presence of pigment networks and globules, I will classify this as a melanocytic lesion.
+
+Final answer: mel
+",9.23
+mlx-community/medgemma-4b-it-4bit,ISIC_0026978,bcc,P3,"mel
+Final answer: mel
+",6.05
+mlx-community/medgemma-4b-it-4bit,ISIC_0026978,bcc,P4,"The image shows a lesion with a central area of darker pigmentation and some irregular borders. This could be a melanocytic nevus with atypical features, or a benign lesion with some atypical features.
+
+2.  Melanocytic nevus with atypical features (mel) or Benign lesion with atypical features (nv)
+3.  mel
+
+Final answer: mel
+",8.89
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P1,"Final answer: nv
+",7.12
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P2,"The image shows a relatively uniform, slightly mottled appearance with some darker areas and a general lack of distinct structures. There are some small, irregular areas of darker pigmentation, but no clear, well-defined structures like globules or a prominent pigment network.
+
+Top 2 candidate classes:
+1.  nv: The mottled appearance and lack of distinct structures could be consistent with a benign vascular lesion (nv).
+2.  mel: The mottled appearance could be consistent with a melanocytic lesion, but the lack of a clear, defined structure makes this less likely than nv.
+
+Final answer: nv
+",11.24
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P3,"Final answer: mel
+",7.28
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P4,"The image shows a relatively uniform, slightly mottled appearance with some areas of increased pigmentation and some areas of decreased pigmentation. There are no obvious, well-defined borders or significant asymmetry.
+
+Top 2 candidate diagnoses:
+1.  nv: The image shows a non-vascular lesion (NV) with a relatively uniform appearance and no significant asymmetry.
+2.  mel: The image shows a melanocytic nevus (mel) with a relatively uniform appearance and no significant asymmetry.
+
+Final answer: nv
+",9.10
+mlx-community/medgemma-4b-it-4bit,ISIC_0026849,bkl,P1,"Final answer: nv
+",9.03
+mlx-community/medgemma-4b-it-4bit,ISIC_0026849,bkl,P2,"The image shows a relatively uniform, slightly mottled appearance with some areas of increased pigmentation and others of decreased pigmentation. There are no obvious structures like pigment networks, globules, or streaks. The overall appearance is not strongly suggestive of any specific lesion type.
+
+Top 2 candidate classes:
+1.  nv: The mottled appearance could be consistent with a nevus (mole).
+2.  mel: The mottled appearance could be consistent with a melanocytic lesion.
+
+Final answer: mel
+",9.37
+mlx-community/medgemma-4b-it-4bit,ISIC_0026849,bkl,P3,"Final answer: mel
+",6.37
+mlx-community/medgemma-4b-it-4bit,ISIC_0026849,bkl,P4,"The image shows a relatively uniform, slightly mottled appearance with some areas of increased pigmentation and some areas of decreased pigmentation. There are no obvious, well-defined structures or patterns.
+
+Top 2 candidate diagnoses:
+1.  mel: The overall appearance is not strongly suggestive of melanoma, but the mottled appearance and lack of clear structures could be seen in some melanocytic nevi.
+2.  nv: The image shows a relatively uniform, slightly mottled appearance with some areas of increased pigmentation and some areas of decreased pigmentation. There are no obvious, well-defined structures or patterns.
+
+Final answer: nv
+",10.23
+mlx-community/medgemma-4b-it-4bit,ISIC_0029100,bkl,P1,"nv
+Final answer: nv
+",6.76
+mlx-community/medgemma-4b-it-4bit,ISIC_0029100,bkl,P2,"The image shows a dark, irregular, and somewhat clustered area with a heterogeneous appearance. This suggests a possible lesion.
+
+Top 2 candidate classes:
+1.  mel: Melanoma. The dark, irregular area could be a melanoma.
+2.  nv: Nevus (mole). The irregular shape and dark color could be a mole.
+
+The image shows a dark, irregular area with a heterogeneous appearance, which is more suggestive of a melanoma than a nevus.
+
+Final answer: mel
+",10.61
+mlx-community/medgemma-4b-it-4bit,ISIC_0029100,bkl,P3,"Final answer: mel
+",6.66
+mlx-community/medgemma-4b-it-4bit,ISIC_0029100,bkl,P4,"1.  **Asymmetry:** The image shows a somewhat irregular and uneven distribution of color and structure, which could suggest asymmetry.
+2.  **Border:** The border is not well-defined and appears irregular, with some areas appearing more prominent than others.
+3.  **Color:** The color is not uniform, with some areas appearing darker than others.
+4.  **Differential structures:** The presence of multiple, small, dark structures within the lesion suggests a heterogeneous appearance, which is a key feature of some skin cancers.
+
+Based on the presence of multiple, small, dark structures within a heterogeneous lesion, the most likely diagnosis is **mel**.
+
+Final answer: mel
+",11.79
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P1,"Final answer: nv
+",7.41
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P2,"The image shows a red, slightly irregular area with some structure, but no clear borders or distinct pigment network.
+
+Top 2 candidate classes:
+1.  mel: The red color and structure suggest a melanocytic lesion, but the lack of clear borders makes it difficult to classify definitively.
+2.  vasc: The red color and structure could be due to a vascular lesion, but it's not clear if it's a benign or malignant vascular lesion.
+
+Based on the lack of clear borders and the presence of red color, I will classify this as:
+Final answer: mel
+",9.80
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P3,"Final answer: mel
+",6.52
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P4,"The image shows a lesion with some color variegation and a somewhat irregular border. The presence of color variegation and a somewhat irregular border makes it difficult to definitively classify.
+
+2.  The two most likely diagnoses are:
+    *   mel: Melanocytic nevi can exhibit color variegation and irregular borders, although they are typically more uniform in color and shape.
+    *   nv: Nevus, or benign nevus, can also show color variegation and irregular borders, and is a common benign lesion.
+
+Final answer: mel
+",8.36
+mlx-community/medgemma-4b-it-4bit,ISIC_0032642,df,P1,"Final answer: nv
+",7.23
+mlx-community/medgemma-4b-it-4bit,ISIC_0032642,df,P2,"The image shows a central area of darker pigmentation with a surrounding halo of lighter pigmentation. There are no obvious structures like pigment networks, globules, or streaks. The border is not clearly defined.
+
+Top 2 candidate classes:
+1.  mel: The central area of darker pigmentation and the halo of lighter pigmentation are suggestive of a melanocytic lesion.
+2.  nv: The halo of lighter pigmentation could be a nevus (mole).
+
+The image is not clear enough to definitively classify it as either a melanocytic lesion or a nevus. However, the presence of a central area of darker pigmentation and a halo of lighter pigmentation makes melanocytic lesion more likely than nevus.
+
+Final answer: mel
+",10.31
+mlx-community/medgemma-4b-it-4bit,ISIC_0032642,df,P3,"Final answer: mel
+",6.59
+mlx-community/medgemma-4b-it-4bit,ISIC_0032642,df,P4,"The image shows a well-defined, round, homogeneous, and slightly reddish lesion with a clear border. This is characteristic of a melanocytic nevus.
+
+Top 2 candidate diagnoses:
+1.  Melanocytic nevus (mel)
+2.  Nevus
+
+Final answer: mel
+",7.59
+mlx-community/medgemma-4b-it-4bit,ISIC_0030427,df,P1,"nv
+",6.77
+mlx-community/medgemma-4b-it-4bit,ISIC_0030427,df,P2,"1. The image shows a somewhat irregular, red-tinged area with a slightly blurred appearance. There are some structures that appear to be arranged in a somewhat organized pattern, but it's difficult to discern clear borders or distinct features.
+
+2. Top 2 candidate classes:
+   *   mel: The presence of a red, slightly irregular area with some structure suggests a melanocytic lesion.
+   *   nv: The image could potentially represent a nevus (mole), but the ""red"" appearance and some structure make it less clear than a typical nevus.
+
+3. Based on the presence of a red, slightly irregular area with some structure, I will classify this as a melanocytic lesion.
+
+Final answer: mel
+",10.56
+mlx-community/medgemma-4b-it-4bit,ISIC_0030427,df,P3,"mel
+Final answer: mel
+",7.80
+mlx-community/medgemma-4b-it-4bit,ISIC_0030427,df,P4,"The image shows a lesion with a somewhat irregular border and a homogeneous, pinkish-red color. There are no significant areas of hypopigmentation or hyperpigmentation, and no prominent vessels are visible. The overall appearance is not highly suspicious for any of the other categories.
+
+2.  The lesion could be a melanocytic nevus (nv) or a benign keratosis (bkl).
+
+Final answer: mel
+",8.74
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P1,"Final answer: nv
+",7.01
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P2,"The image shows a dark, circular lesion with a central area of darker pigmentation and a surrounding lighter area. The edges are not well-defined, and there are some small, round structures within the lesion.
+
+The top two candidate classes are:
+1.  mel: The dark, circular lesion with a central area of darker pigmentation and a surrounding lighter area is highly suggestive of a melanocytic lesion, such as a melanoma or a dysplastic nevus.
+2.  nv: The presence of a dark central area and a surrounding lighter area could be a sign of a nevus, but the overall appearance is more concerning than a typical nevus.
+
+Based on the description, the most likely class is melanoma.
+
+Final answer: mel
+",10.16
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P3,"Final answer: mel
+",6.20
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P4,"The image shows a dark, circular lesion with a central area of darkness and a surrounding lighter area. The lesion has a somewhat irregular border and a central area of darkness. The presence of a central area of darkness is a key feature.
+
+Top 2 candidate diagnoses:
+1.  Melanoma (mel): The dark central area and irregular border are suggestive of melanoma.
+2.  Nevus (nv): The image shows a dark, circular lesion, which could be a nevus (mole).
+
+Final answer: mel
+Final answer: mel
+",9.14
+mlx-community/medgemma-4b-it-4bit,ISIC_0026664,mel,P1,"Final answer: nv
+",7.05
+mlx-community/medgemma-4b-it-4bit,ISIC_0026664,mel,P2,"1. The image shows a dark, irregular area with a central darker region and surrounding lighter areas. There are some structures that appear to be pigment networks and some areas of color variation.
+
+2. Top 2 candidate classes:
+   *   mel: The dark central region and the presence of pigment networks are suggestive of melanoma.
+   *   nv: The irregular shape and color variation could be consistent with a nevus (mole).
+
+3. Based on the presence of a dark central region and pigment networks, I will classify this as melanoma.
+
+Final answer: mel
+",11.36
+mlx-community/medgemma-4b-it-4bit,ISIC_0026664,mel,P3,"Final answer: mel
+",6.78
+mlx-community/medgemma-4b-it-4bit,ISIC_0026664,mel,P4,"The image shows a dark, irregular, and somewhat amorphous area with a central darker region and surrounding lighter areas. This suggests a possible melanocytic lesion.
+
+1.  **Melanocytic nevi (nv):** The dark central area could represent a melanocyte cluster, and the surrounding lighter areas could be due to pigment variation within the nevus.
+2.  **Melanoma (mel):** The irregular borders and dark central area could be indicative of melanoma.
+
+Based on the dermoscopic features, the most likely diagnosis is melanocytic nevus.
+
+Final answer: mel
+",9.82
+mlx-community/medgemma-4b-it-4bit,ISIC_0033141,mel,P1,"Final answer: nv
+",7.05
+mlx-community/medgemma-4b-it-4bit,ISIC_0033141,mel,P2,"1. The image shows a dark, irregular, and somewhat ""spongy"" area with a central darker region and a lighter periphery. There are some structures that appear to be branching or web-like.
+
+2. Top 2 candidate classes:
+   *   **mel:** Melanoma. The dark, irregular area with branching structures could be a melanoma.
+   *   **nv:** Nevus (mole). The irregular shape and color variation could be a mole, but the ""spongy"" appearance is less typical of a classic mole.
+
+3. Based on the ""spongy"" appearance and irregular borders, I will classify this as a melanoma.
+
+Final answer: mel
+",13.13
+mlx-community/medgemma-4b-it-4bit,ISIC_0033141,mel,P3,"Final answer: mel
+",6.78
+mlx-community/medgemma-4b-it-4bit,ISIC_0033141,mel,P4,"The image shows a dark, irregular, and somewhat ""spongy"" lesion with a central area of darker pigmentation and a surrounding lighter area. This pattern is suggestive of a melanocytic nevus with atypical features.
+
+2.  mel: The lesion is dark, irregular, and has a ""spongy"" appearance, which can be seen in melanocytic nevi with atypical features.
+    nv: The lesion is a dark, irregular, and somewhat ""spongy"" appearance, which can be seen in melanocytic nevi with atypical features.
+
+Final answer: mel
+",9.92
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P1,"Final answer: nv
+",7.10
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P2,"The image shows a red, somewhat irregular area with a blurry appearance. There are some structures that resemble streaks or patterns, but they are not clearly defined.
+
+Top 2 candidate classes:
+1.  nv: The irregular shape and red color could be suggestive of a nevus (mole).
+2.  mel: The red color and irregular shape could be suggestive of a melanocytic lesion.
+
+The image is not clear enough to definitively classify it as either a nevus or a melanoma. However, given the presence of red color and irregular shape, I will choose to classify it as a nevus.
+
+Final answer: nv
+",10.17
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P3,"Final answer: mel
+",6.97
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P4,"The image shows a red, somewhat irregular area with a blurry border and a lack of distinct structures. This could be a lesion with a non-uniform color distribution, which is a common feature of melanocytic nevi or atypical melanocytic proliferations.
+
+2.  mel, nv
+
+Final answer: nv
+",9.43
+mlx-community/medgemma-4b-it-4bit,ISIC_0029347,nv,P1,"Final answer: nv
+",8.80
+mlx-community/medgemma-4b-it-4bit,ISIC_0029347,nv,P2,"The image shows a relatively uniform, somewhat circular area of darker pigmentation with a slightly irregular border. There are no obvious globules, streaks, or significant vessels.
+
+Top 2 candidates:
+1.  mel: The uniform dark color and somewhat circular shape could be consistent with a melanocytic lesion.
+2.  nv: The uniform dark color and somewhat circular shape could be consistent with a nevus.
+
+The image lacks clear features to distinguish between a melanocytic lesion and a nevus.
+
+Final answer: mel
+",12.01
+mlx-community/medgemma-4b-it-4bit,ISIC_0029347,nv,P3,"Final answer: mel
+",8.38
+mlx-community/medgemma-4b-it-4bit,ISIC_0029347,nv,P4,"The image shows a relatively uniform, reddish-brown lesion with a somewhat circular shape. There are no obvious atypical border features, and the color is relatively homogeneous.
+
+Top 2 candidate diagnoses:
+1.  mel: The lesion is a uniform color and shape, which is consistent with a melanocytic nevus.
+2.  nv: The lesion is a uniform color and shape, which is consistent with a melanocytic nevus.
+
+Final answer: mel
+",12.13
+mlx-community/medgemma-4b-it-4bit,ISIC_0029865,nv,P1,"Final answer: nv
+",8.50
+mlx-community/medgemma-4b-it-4bit,ISIC_0029865,nv,P2,"The image shows a dark, somewhat irregular area with a central darker region and some surrounding lighter areas. There are no obvious structures like pigment networks, globules, or streaks.
+
+The top two candidate classes are:
+1.  mel: Melanocytic nevi (moles) can appear as dark, irregular areas with a central darker region.
+2.  nv: Nevus (mole)
+
+The image is not a lesion with a defined border, and there are no obvious structures like pigment networks, globules, or streaks.
+
+Final answer: mel
+",12.47
+mlx-community/medgemma-4b-it-4bit,ISIC_0029865,nv,P3,"Final answer: mel
+",9.36
+mlx-community/medgemma-4b-it-4bit,ISIC_0029865,nv,P4,"The image shows a dark, somewhat irregular area with a central darker region and some surrounding lighter areas. There are no obvious borders or other structures to suggest a specific type of lesion.
+
+2.  The most likely diagnosis is **nv** (nevoid). The dark central area could represent a melanocyte with a dark halo, which is a common feature of nevi.
+
+Final answer: nv
+",8.64
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P1,"nv
+Final answer: nv
+",9.58
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P2,"The image shows a circular lesion with a distinct border and a central area of different color. The border appears irregular, and there's a color variation within the lesion.
+
+Top 2 candidate classes:
+1.  bcc: The circular shape and color variation are typical of a basal cell carcinoma.
+2.  nv: The circular shape and color variation could be a nevi, but the border irregularity makes this less likely than bcc.
+
+Final answer: bcc
+",13.12
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P3,"Final answer: bkl
+",7.41
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P4,"The image shows a well-defined, circular lesion with a central area of darker color and a surrounding halo of lighter color. This is characteristic of a **bkl** (Bowen's disease).
+
+Final answer: bkl
+",8.23
+mlx-community/medgemma-4b-it-4bit,ISIC_0027563,vasc,P1,"nv
+Final answer: nv
+",7.21
+mlx-community/medgemma-4b-it-4bit,ISIC_0027563,vasc,P2,"The image shows a central area of darker pigmentation with a surrounding lighter area. There are no obvious structures like pigment networks, globules, or streaks. The border is not clearly defined, and there's a slight asymmetry.
+
+Top 2 candidate classes:
+1.  mel: The central area of darker pigmentation suggests melanocytic activity, which is a hallmark of melanoma.
+2.  nv: The central area of darker pigmentation could be a nevus (mole).
+
+The image is not clear enough to definitively classify it as either melanoma or nevus. However, the presence of a central area of darker pigmentation makes melanoma a more likely candidate than nevus.
+
+Final answer: mel
+",12.15
+mlx-community/medgemma-4b-it-4bit,ISIC_0027563,vasc,P3,"Final answer: mel
+",9.04
+mlx-community/medgemma-4b-it-4bit,ISIC_0027563,vasc,P4,"The image shows a central area of darker pigmentation with a surrounding lighter area, creating a ""pie-in-the-sky"" appearance. This is a classic feature of melanocytic nevi.
+
+Top 2 candidate diagnoses:
+1.  nv: The ""pie-in-the-sky"" pattern is a key feature of melanocytic nevi.
+2.  mel: The image shows a dark central area with a lighter surrounding area, which is a common feature of melanocytic nevi.
+
+Final answer: nv
+",12.93
+mlx-community/medgemma-4b-it-4bit,ISIC_0028680,vasc,P1,"nv
+Final answer: nv
+",7.90
+mlx-community/medgemma-4b-it-4bit,ISIC_0028680,vasc,P2,"The image shows a red, circular lesion with a somewhat irregular border. This suggests a possible melanocytic lesion.
+
+Top 2 candidate classes:
+1.  mel: The red color and circular shape are suggestive of a melanocytic lesion.
+2.  bcc: While a bcc can appear red, the overall appearance is more suggestive of a melanocytic lesion.
+
+Final answer: mel
+",10.65
+mlx-community/medgemma-4b-it-4bit,ISIC_0028680,vasc,P3,"Final answer: mel
+",7.95
+mlx-community/medgemma-4b-it-4bit,ISIC_0028680,vasc,P4,"The image shows a red, circular lesion with a central area of increased color intensity and a surrounding halo of lighter color. This is characteristic of a **mel** (melanocytic nevus).
+
+Final answer: mel
+",8.46

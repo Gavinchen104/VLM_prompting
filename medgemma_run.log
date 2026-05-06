@@ -1,0 +1,10 @@
+Manifest: pilot_manifest_mini.csv (7 images)
+Model:    mlx-community/medgemma-4b-it-4bit
+Prompts:  ['P1', 'P2', 'P3', 'P4']
+Total inferences: 28
+Loading mlx-community/medgemma-4b-it-4bit ...
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files: 100%|██████████| 12/12 [00:00<00:00, 15312.34it/s]
+Model loaded in 5.3s
+Inferences:   0%|          | 0/28 [00:00<?, ?it/s]Inferences:   4%|▎         | 1/28 [00:04<02:11,  4.86s/it]Inferences:   7%|▋         | 2/28 [00:11<02:40,  6.16s/it]Inferences:  11%|█         | 3/28 [00:16<02:11,  5.27s/it]Inferences:  14%|█▍        | 4/28 [00:23<02:26,  6.09s/it]Inferences:  18%|█▊        | 5/28 [00:27<02:05,  5.48s/it]Inferences:  21%|██▏       | 6/28 [00:35<02:17,  6.27s/it]Inferences:  25%|██▌       | 7/28 [00:39<01:57,  5.62s/it]Inferences:  29%|██▊       | 8/28 [00:45<01:52,  5.63s/it]Inferences:  32%|███▏      | 9/28 [00:50<01:40,  5.31s/it]Inferences:  36%|███▌      | 10/28 [00:58<01:49,  6.09s/it]Inferences:  39%|███▉      | 11/28 [01:02<01:34,  5.56s/it]Inferences:  43%|████▎     | 12/28 [01:09<01:37,  6.08s/it]Inferences:  46%|████▋     | 13/28 [01:14<01:25,  5.70s/it]Inferences:  50%|█████     | 14/28 [01:23<01:32,  6.59s/it]Inferences:  54%|█████▎    | 15/28 [01:29<01:24,  6.48s/it]Inferences:  57%|█████▋    | 16/28 [01:38<01:25,  7.16s/it]Inferences:  61%|██████    | 17/28 [01:45<01:18,  7.13s/it]Inferences:  64%|██████▍   | 18/28 [01:57<01:25,  8.56s/it]Inferences:  68%|██████▊   | 19/28 [02:05<01:16,  8.53s/it]Inferences:  71%|███████▏  | 20/28 [02:17<01:15,  9.46s/it]Inferences:  75%|███████▌  | 21/28 [02:25<01:03,  9.13s/it]Inferences:  79%|███████▊  | 22/28 [02:39<01:04, 10.67s/it]Inferences:  82%|████████▏ | 23/28 [02:49<00:51, 10.38s/it]Inferences:  86%|████████▌ | 24/28 [03:01<00:43, 10.87s/it]Inferences:  89%|████████▉ | 25/28 [03:10<00:31, 10.38s/it]Inferences:  93%|█████████▎| 26/28 [03:22<00:21, 10.84s/it]Inferences:  96%|█████████▋| 27/28 [03:30<00:09, 10.00s/it]Inferences: 100%|██████████| 28/28 [03:40<00:00,  9.81s/it]Inferences: 100%|██████████| 28/28 [03:40<00:00,  7.86s/it]
+
+Done. Wrote pilot_medgemma.csv
