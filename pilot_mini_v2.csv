@@ -1,0 +1,85 @@
+model,image_id,true_label,prompt_id,raw_output,latency_s
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P1,"Final answer: nv
+",4.78
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P2,"Reasoning: The image shows a mottled, irregular pattern of pigmentation with a central area of increased density and a peripheral halo. This pattern is suggestive of a melanocytic nevus, which is a benign mole.
+
+Final answer: nv
+",5.53
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P3,"nv
+Final answer: nv
+",4.37
+mlx-community/medgemma-4b-it-4bit,ISIC_0024646,akiec,P4,"Reasoning: The image shows a mottled, irregular pattern of pigmentation with a central area of increased density and peripheral areas of decreased density. This pattern is suggestive of a melanocytic nevus, which is a benign lesion.
+
+Final answer: nv
+",5.61
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P1,"nv
+Final answer: nv
+",4.37
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P2,"Reasoning: The image shows a small, round, and well-defined lesion with a central dot-like structure, which is typical of a melanocytic nevus. The lesion appears to be relatively uniform in color and lacks significant asymmetry or irregular borders.
+
+Final answer: nv
+",5.83
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P3,"nv
+Final answer: nv
+",4.45
+mlx-community/medgemma-4b-it-4bit,ISIC_0025691,bcc,P4,"Reasoning: The image shows a single, well-defined, round structure with a central dot, which is typical of a melanocytic nevus. There are no other concerning features like irregular borders, color variation, or atypical structures.
+Final answer: nv
+",5.92
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P1,"Final answer: nv
+",4.56
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P2,"Reasoning: The image shows a relatively uniform, slightly mottled appearance with some irregular borders and a lack of distinct architectural patterns. The overall impression is not strongly suggestive of a specific type of lesion, but it could be a benign lesion.
+
+Final answer: nv
+",5.87
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P3,"nv
+Final answer: nv
+",4.59
+mlx-community/medgemma-4b-it-4bit,ISIC_0027527,bkl,P4,"Reasoning: The image shows a relatively uniform, slightly mottled appearance with some areas of increased pigmentation. While it's difficult to definitively rule out a melanocytic nevus, the lack of significant asymmetry, atypical border features, or other concerning structures makes a benign nevus more likely than a malignant melanoma or a more aggressive lesion.
+
+Final answer: nv
+",6.37
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P1,"Final answer: nv
+",4.53
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P2,"Reasoning: The image shows a relatively uniform, slightly red area with some structure, but no clear asymmetry or other concerning features like a border irregularity or significant color variation. The structure is not particularly complex.
+
+Final answer: bkl
+",5.70
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P3,"Final answer: nv
+",4.57
+mlx-community/medgemma-4b-it-4bit,ISIC_0027727,df,P4,"Reasoning: The image shows a relatively uniform, slightly red area with some structure, but no clear asymmetry, border irregularity, or significant architectural distortion. The color is not particularly concerning.
+Final answer: nv
+",5.76
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P1,"Final answer: mel
+",4.45
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P2,"Reasoning: The image shows a dark, irregular, and somewhat ""spongy"" appearance with a central area of darker pigmentation and surrounding lighter areas. This suggests a melanocytic nevus, which is a benign mole.
+Final answer: nv
+",5.95
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P3,"Final answer: mel
+",4.48
+mlx-community/medgemma-4b-it-4bit,ISIC_0028584,mel,P4,"Reasoning: The image shows a dark, circular lesion with a central area of darker pigmentation and a surrounding halo of lighter pigmentation. This is a classic appearance of a melanocytic nevus, which is a benign mole.
+Final answer: nv
+",6.03
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P1,"Final answer: nv
+",4.63
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P2,"Reasoning: The image shows a red, irregular area with a somewhat defined border, but without clear features of a melanoma, nevus, or vascular lesion. The presence of a red area with a somewhat defined border suggests a possible lesion.
+Final answer: nv
+",5.87
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P3,"nv
+Final answer: nv
+",4.70
+mlx-community/medgemma-4b-it-4bit,ISIC_0032016,nv,P4,"Reasoning: The image shows a red, slightly irregular area with some structure. This could be a benign lesion, but further evaluation is needed to rule out malignancy.
+
+Final answer: nv
+",5.68
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P1,"nv
+Final answer: nv
+",4.73
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P2,"Reasoning: The image shows a well-defined, circular lesion with a central area of darker color and a surrounding halo of lighter color. This appearance is characteristic of a seborrheic keratosis, which is a benign lesion.
+Final answer: bkl
+",6.01
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P3,"nv
+Final answer: nv
+",5.13
+mlx-community/medgemma-4b-it-4bit,ISIC_0033349,vasc,P4,"Reasoning: The image shows a well-defined, circular lesion with a central area of darker pigmentation and a surrounding halo of lighter pigmentation. This suggests a benign lesion.
+Final answer: nv
+",6.05
