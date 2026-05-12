@@ -4,9 +4,9 @@ This is the fast path for running the pilot **locally** on your Mac before
 moving to DCC. We use Apple's MLX framework with a 4-bit-quantized MedGemma
 (3GB instead of 9GB), which fits comfortably in 16GB unified memory.
 
-The cluster code (`02_smoke_test.py`, `03_run_pilot.py` etc.) uses transformers
-and is for DCC. The Mac code is in `mac_smoke_test.py` and `mac_run_pilot.py`.
-Same prompts, same parser, same pilot manifest — just a different inference backend.
+The cluster code (`scripts/dcc/`) uses transformers and is for DCC. The Mac code
+is in `scripts/mac/`. Same prompts, same parser, same pilot manifest — just a
+different inference backend.
 
 ---
 
@@ -67,10 +67,10 @@ kaggle datasets list -s ham10000 | head
 ## 3. Download HAM10000 + build pilot manifest
 
 ```bash
-python 01_download_data.py
+python scripts/01_download_data.py
 ```
 
-This downloads ~3GB and writes `pilot_manifest.csv` with 21 rows. Same script as for DCC.
+This downloads ~3GB and writes `results/pilot_manifest.csv` with 21 rows. Same script as for DCC.
 
 If you already have the dataset, this script is a no-op.
 
@@ -79,19 +79,19 @@ If you already have the dataset, this script is a no-op.
 ## 4. Smoke test (one image, one prompt)
 
 ```bash
-python mac_smoke_test.py
+python scripts/mac/smoke_test.py
 ```
 
 What this does:
 1. Downloads `mlx-community/medgemma-4b-it-4bit` (~3GB) on first run
 2. Loads it via mlx-vlm
 3. Runs the first image from your manifest with prompt P1
-4. Saves output to `smoke_test_output.txt`
+4. Saves output to `results/smoke_test_output.txt`
 
 Expected timing on M1/M2 16GB: model load ~30s, generation ~10–20s for 100 tokens.
 
 If this prints sensible output, **do not run the full pilot yet** — open
-`smoke_test_output.txt` and read it. Make sure:
+`results/smoke_test_output.txt` and read it. Make sure:
 - The output isn't empty or an error
 - The model said *something* about the image (color, shape, structure)
 - The output ends with `Final answer: <code>` or close to it
@@ -101,7 +101,7 @@ If this prints sensible output, **do not run the full pilot yet** — open
 ## 5. Full pilot (21 images × 2 prompts)
 
 ```bash
-python mac_run_pilot.py
+python scripts/mac/run_pilot.py
 ```
 
 Expected timing on M1/M2 16GB:
@@ -109,7 +109,7 @@ Expected timing on M1/M2 16GB:
 - Each inference: 10–30s (depends on prompt; CoT is longer)
 - Total: 15–25 minutes for 42 inferences
 
-Output: `pilot_results.csv` (same schema as DCC). The progress bar tells you
+Output: `results/pilot_results.csv` (same schema as DCC). The progress bar tells you
 how it's going. **Don't quit when you see the model warning text** — first-run
 warnings about chat templates are normal.
 
@@ -122,13 +122,13 @@ Slack, etc.) to leave more memory for inference.
 ## 6. Inspect the results
 
 ```bash
-python 04_inspect.py
+python scripts/04_inspect.py
 ```
 
-This is the **same script** as for DCC — it reads `pilot_results.csv` and
-writes `pilot_inspection.csv` with parsed labels, plus a console summary.
+This is the **same script** as for DCC — it reads `results/pilot_results.csv` and
+writes `results/pilot_inspection.csv` with parsed labels, plus a console summary.
 
-Open `pilot_inspection.csv` in Numbers or Excel and read every row. The
+Open `results/pilot_inspection.csv` in Numbers or Excel and read every row. The
 inspection step is identical to the DCC plan.
 
 ---
@@ -161,4 +161,4 @@ Once the pipeline is clean, the real numbers come from DCC at full precision.
 | `Metal device not found` | Check macOS version (need 14+) and `python -c "import platform; print(platform.machine())"` should print `arm64` |
 | Inference seems stuck | First run is slow due to JIT compilation. Wait 60s before worrying. |
 | Out of memory | Close Chrome/Slack/etc.; restart Python; reboot if needed |
-| Output is garbage / empty | Check the chat template — `mac_smoke_test.py` will print it |
+| Output is garbage / empty | Check the chat template — `scripts/mac/smoke_test.py` will print it |

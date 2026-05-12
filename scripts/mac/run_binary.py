@@ -1,5 +1,5 @@
 """
-mac_run_binary.py — One-off binary (mel vs not_mel) experiment.
+run_binary.py — One-off binary (mel vs not_mel) experiment.
 
 Same 21 images, same model, same prompt structure (P1-P4) — but reframed as a
 2-class task to test whether the 7-class collapse we observed is driven by
@@ -12,7 +12,7 @@ Hypothesis:
   just to whichever single class is its dominant prior.
 
 Run:
-    python mac_run_binary.py
+    python scripts/mac/run_binary.py
 """
 
 import sys
@@ -24,7 +24,14 @@ from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 
-from mac_smoke_test import load_model_mlx, run_one_mlx, MODEL_ID
+# Repo-anchored paths + put src/ AND this script's dir on the import path.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+RESULTS_DIR = REPO_ROOT / "results"
+RESULTS_DIR.mkdir(exist_ok=True)
+
+from smoke_test import load_model_mlx, run_one_mlx, MODEL_ID
 from prompts import CONSTRAINTS_BLOCK, COT_STEPS_BLOCK, ROLE_SYSTEM
 
 
@@ -101,7 +108,7 @@ def parse_binary(output: str) -> tuple[str, str]:
 
 
 def main():
-    manifest = pd.read_csv("pilot_manifest.csv")
+    manifest = pd.read_csv(RESULTS_DIR / "pilot_manifest.csv")
     # binarize true labels: mel → 'mel', everything else → 'not_mel'
     manifest["true_binary"] = manifest["true_label"].apply(
         lambda x: "mel" if x == "mel" else "not_mel"
@@ -112,7 +119,7 @@ def main():
 
     model, processor = load_model_mlx(MODEL_ID)
 
-    out_path = "pilot_binary.csv"
+    out_path = RESULTS_DIR / "pilot_binary.csv"
     fieldnames = ["model", "image_id", "true_label", "true_binary",
                   "prompt_id", "raw_output", "latency_s"]
     with open(out_path, "w", newline="") as f:

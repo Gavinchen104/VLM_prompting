@@ -5,9 +5,9 @@ Run interactively on a GPU node:
     srun --partition=gpu-common --gres=gpu:1 --time=01:00:00 --mem=24G --pty bash
     conda activate medvlm
     cd $WORK
-    python 02_smoke_test.py
+    python scripts/dcc/02_smoke_test.py
 
-If this prints sensible-looking output and saves smoke_test_output.txt, you're good.
+If this prints sensible output and saves results/smoke_test_output.txt, you're good.
 DO NOT PROCEED to the pilot run until this works.
 """
 
@@ -20,6 +20,12 @@ import torch
 import pandas as pd
 from PIL import Image
 from transformers import AutoProcessor, AutoModelForImageTextToText
+
+# Repo-anchored paths + put src/ on the import path.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+RESULTS_DIR = REPO_ROOT / "results"
+RESULTS_DIR.mkdir(exist_ok=True)
 
 # ---------- Config ----------
 
@@ -97,10 +103,11 @@ def run_one(processor, model, image, messages, max_new_tokens=300):
 
 def main():
     # 1. Load manifest, take first image
-    manifest = pd.read_csv("pilot_manifest.csv")
-    if len(manifest) == 0:
-        print("ERROR: pilot_manifest.csv is empty. Run 01_download_data.py first.")
+    manifest_path = RESULTS_DIR / "pilot_manifest.csv"
+    if not manifest_path.exists() or len(pd.read_csv(manifest_path)) == 0:
+        print(f"ERROR: {manifest_path} missing or empty. Run 01_download_data.py first.")
         sys.exit(1)
+    manifest = pd.read_csv(manifest_path)
     row = manifest.iloc[0]
     print(f"Using image: {row['image_id']}  (true label: {row['true_label']})")
     image = Image.open(row["image_path"]).convert("RGB")
@@ -129,14 +136,15 @@ def main():
     print(f"True:   {row['true_label']}  (match: {parsed == row['true_label']})")
 
     # 6. Save artifacts
-    with open("smoke_test_output.txt", "w") as f:
+    out_path = RESULTS_DIR / "smoke_test_output.txt"
+    with open(out_path, "w") as f:
         f.write(f"model: {model_id}\n")
         f.write(f"image_id: {row['image_id']}\n")
         f.write(f"true_label: {row['true_label']}\n")
         f.write(f"latency_s: {dt:.2f}\n")
         f.write(f"parsed: {parsed} ({method})\n")
         f.write(f"\n--- raw output ---\n{output}\n")
-    print("\nSaved smoke_test_output.txt")
+    print(f"\nSaved {out_path}")
     print("\n*** Smoke test PASSED. You can now run the pilot. ***")
 
 

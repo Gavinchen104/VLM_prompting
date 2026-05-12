@@ -2,11 +2,11 @@
 04_inspect.py — Parse the pilot results and produce a spreadsheet for hand review.
 
 Inputs:
-    pilot_results.csv         (from 03_run_pilot.py — has raw_output)
+    results/pilot_results.csv     (from 03_run_pilot.py — has raw_output)
 
 Outputs:
-    pilot_inspection.csv      (parsed labels + correctness + an empty notes column)
-    Console summary           (per-prompt accuracy, parse-failure rate, confusion matrix)
+    results/pilot_inspection.csv  (parsed labels + correctness + an empty notes column)
+    Console summary               (per-prompt accuracy, parse-failure rate, confusion matrix)
 
 This is the most important script in the pilot. Open the CSV and look at every
 row. The numbers don't matter yet — the *behavior* matters.
@@ -17,11 +17,16 @@ from pathlib import Path
 import pandas as pd
 from collections import Counter
 
+# Repo-anchored paths + put src/ on the import path.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+RESULTS_DIR = REPO_ROOT / "results"
+
 from parser import parse
 
 
 def main():
-    src = Path("pilot_results.csv")
+    src = RESULTS_DIR / "pilot_results.csv"
     if not src.exists():
         print(f"{src} not found. Run 03_run_pilot.py first.")
         sys.exit(1)
@@ -66,8 +71,9 @@ def main():
     # Save inspection CSV with the columns you want to review by hand
     out_cols = ["image_id", "true_label", "prompt_id", "parsed_label",
                 "parse_method", "correct", "latency_s", "notes", "raw_output"]
-    df[out_cols].to_csv("pilot_inspection.csv", index=False)
-    print(f"\nWrote pilot_inspection.csv ({len(df)} rows)")
+    out_path = RESULTS_DIR / "pilot_inspection.csv"
+    df[out_cols].to_csv(out_path, index=False)
+    print(f"\nWrote {out_path} ({len(df)} rows)")
     print("\nNext steps:")
     print("  1. Open pilot_inspection.csv in a spreadsheet")
     print("  2. Sort by prompt_id, then read every raw_output")

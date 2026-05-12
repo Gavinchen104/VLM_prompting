@@ -21,52 +21,65 @@ The point is **not to get good numbers**. The point is to learn:
 
 ## How to use
 
-Read `00_setup.md` and follow it step by step. Key gates:
+Read `docs/setup_dcc.md` (or `docs/setup_mac.md`) and follow it step by step. Key gates:
 
 | Gate | What must work | If it fails |
 |---|---|---|
 | 1. Setup | `import torch; torch.cuda.is_available()` | Wrong CUDA install |
 | 2. Auth | `huggingface-cli whoami` shows your name | Bad token |
-| 3. Data | `pilot_manifest.csv` has 21 rows | Kaggle creds wrong |
-| 4. Smoke | `02_smoke_test.py` prints model output | Access denied / OOM |
-| 5. Pilot | `pilot_results.csv` has 42 rows | See slurm-*.err |
-| 6. Inspect | `pilot_inspection.csv` opens and looks sensible | (this is the science) |
+| 3. Data | `results/pilot_manifest.csv` has 21 rows | Kaggle creds wrong |
+| 4. Smoke | `scripts/dcc/02_smoke_test.py` prints model output | Access denied / OOM |
+| 5. Pilot | `results/pilot_results.csv` has 42 rows | See slurm-*.err |
+| 6. Inspect | `results/pilot_inspection.csv` opens and looks sensible | (this is the science) |
 
 ## Two paths: pick one
 
-- **Local Mac (Apple Silicon)** — for proving the pipeline works. See `mac_quickstart.md`.
-- **Duke DCC (cluster)** — for the actual measurement runs. See `00_setup.md`.
+- **Local Mac (Apple Silicon)** — for proving the pipeline works. See `docs/setup_mac.md`.
+- **Duke DCC (cluster)** — for the actual measurement runs. See `docs/setup_dcc.md`.
 
 Recommended: do the Mac run *first* to validate plumbing, then DCC for real numbers.
 
-## Files
+## Layout
 
 ```
-README.md              ← You are here.
-mac_quickstart.md      ← Mac-only setup (mlx-vlm, 4-bit MedGemma).
-00_setup.md            ← DCC setup (Slurm, transformers, bf16).
+docs/
+  setup_mac.md         ← Mac setup (mlx-vlm, 4-bit MedGemma)
+  setup_dcc.md         ← DCC setup (Slurm, transformers, bf16)
 
-01_download_data.py    ← [shared] Download HAM10000, build pilot subset.
-prompts.py             ← [shared] All 8 prompt conditions (DCC version).
-parser.py              ← [shared] Output → class-code parser, with synonyms.
-04_inspect.py          ← [shared] Parse + summarize for hand review.
+src/
+  prompts.py           ← All 8 prompt conditions
+  parser.py            ← Output → class-code parser, with synonyms
 
-mac_smoke_test.py      ← Mac: one-image sanity check.
-mac_run_pilot.py       ← Mac: full pilot (21 × 2 inferences).
+scripts/
+  01_download_data.py  ← [shared] Download HAM10000, build pilot subset
+  04_inspect.py        ← [shared] Parse + summarize for hand review
+  mac/
+    smoke_test.py      ← Mac: one-image sanity check
+    run_pilot.py       ← Mac: full pilot (21 × N inferences)
+    run_binary.py      ← Mac: mel vs not_mel side experiment
+  dcc/
+    02_smoke_test.py   ← DCC: one-image sanity check
+    03_run_pilot.py    ← DCC: full pilot (run via sbatch)
+    run_pilot.sh       ← DCC: Slurm submission script
+  compare/
+    compare_pilot.py   ← Run P1-P4 for one model → results/pilot_<tag>.csv
+    compare_inspect.py ← Aggregate all results/pilot_*.csv into one table
 
-02_smoke_test.py       ← DCC: one-image sanity check.
-03_run_pilot.py        ← DCC: full pilot (run via sbatch).
-run_pilot.sh           ← DCC: Slurm submission script for 03.
+results/               ← All generated CSVs + logs (tracked in git)
+data/                  ← HAM10000 dataset (~3GB, gitignored)
 ```
+
+All scripts can be run from the repo root; each one anchors paths via
+`REPO_ROOT = Path(__file__).resolve().parents[N]`.
 
 ## What comes next (after the pilot)
 
-Decide based on what you see in `pilot_inspection.csv`:
+Decide based on what you see in `results/pilot_inspection.csv`:
 
 - **If parse failures > 10%** → tighten the prompt, re-run pilot
 - **If P4 doesn't actually reason** → rewrite the CoT instruction
 - **If model refuses or returns blanks** → the model may need a different message format
 - **If everything looks healthy** → scale to all 8 prompts × ~50 images per class
-  (an `05_run_full.py` to be written once we know the pilot is clean)
+  (a `scripts/05_run_full.py` to be written once we know the pilot is clean)
 
 Then add a second model for cross-architecture validation (LLaVA-Med 8B or Qwen3-VL).

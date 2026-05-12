@@ -35,7 +35,7 @@ echo "HF_HOME:     $HF_HOME"
 echo "Start:       $(date)"
 echo
 
-python 03_run_pilot.py
+python scripts/dcc/03_run_pilot.py
 
 echo
 echo "End:         $(date)"

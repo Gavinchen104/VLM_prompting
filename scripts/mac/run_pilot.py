@@ -1,14 +1,14 @@
 """
-mac_run_pilot.py — Apple Silicon pilot runner using MLX.
+run_pilot.py — Apple Silicon pilot runner using MLX.
 
 Runs the pilot manifest × the configured prompts and writes a results CSV
 (same schema as the DCC version, so 04_inspect.py works for both).
 
 Usage:
     source .venv/bin/activate
-    python mac_run_pilot.py                                  # default: full 21 images, P1-P4
-    python mac_run_pilot.py pilot_manifest_mini.csv          # mini manifest
-    python mac_run_pilot.py pilot_manifest_mini.csv out.csv  # custom output
+    python scripts/mac/run_pilot.py                                          # default
+    python scripts/mac/run_pilot.py results/pilot_manifest_mini.csv          # mini
+    python scripts/mac/run_pilot.py results/pilot_manifest_mini.csv out.csv  # custom output
 
 Expected timing on M1/M2 16GB:
     direct prompts ~3-5s, CoT prompts ~10-30s per inference.
@@ -22,8 +22,16 @@ from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 
+# Repo-anchored paths + put src/ AND this script's dir on the import path
+# (the latter so we can import the sibling smoke_test.py).
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+RESULTS_DIR = REPO_ROOT / "results"
+RESULTS_DIR.mkdir(exist_ok=True)
+
 # Reuse loader + runner from the smoke test
-from mac_smoke_test import load_model_mlx, run_one_mlx, MODEL_ID
+from smoke_test import load_model_mlx, run_one_mlx, MODEL_ID
 
 # Reuse the shared prompt blocks so this file stays in sync with prompts.py.
 # mlx-vlm uses a different message shape than transformers, so we re-wrap here,
@@ -73,8 +81,8 @@ MAX_TOKENS_BY_PROMPT = {
 
 
 def main():
-    manifest_path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("pilot_manifest.csv")
-    out_path = sys.argv[2] if len(sys.argv) > 2 else "pilot_results.csv"
+    manifest_path = Path(sys.argv[1]) if len(sys.argv) > 1 else RESULTS_DIR / "pilot_manifest.csv"
+    out_path = Path(sys.argv[2]) if len(sys.argv) > 2 else RESULTS_DIR / "pilot_results.csv"
 
     if not manifest_path.exists():
         print(f"ERROR: {manifest_path} not found.")
@@ -126,7 +134,7 @@ def main():
         pbar.close()
 
     print(f"\nDone. Wrote {out_path}")
-    print("Run `python 04_inspect.py` to parse and review.")
+    print("Run `python scripts/04_inspect.py` to parse and review.")
 
 
 if __name__ == "__main__":

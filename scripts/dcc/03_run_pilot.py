@@ -1,7 +1,7 @@
 """
 03_run_pilot.py — Run 21 images × 2 prompts (P1, P4) and save raw outputs.
 
-This produces pilot_results.csv with columns:
+This produces results/pilot_results.csv with columns:
   image_id, true_label, prompt_id, raw_output, latency_s
 
 We do NOT parse here. Parsing happens in 04_inspect.py so we can iterate on
@@ -22,17 +22,26 @@ from PIL import Image
 from tqdm import tqdm
 from transformers import AutoProcessor, AutoModelForImageTextToText
 
+# Repo-anchored paths + put src/ AND this script's dir on the import path.
+# The latter is needed for import_module("02_smoke_test") below — numeric prefix
+# means it's not a normal-importable name.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+RESULTS_DIR = REPO_ROOT / "results"
+RESULTS_DIR.mkdir(exist_ok=True)
+
 from prompts import PILOT_PROMPTS
 
 # Reuse the smoke test's model loader to keep behavior identical
 from importlib import import_module
 smoke = import_module("02_smoke_test")  # numeric prefix → can't normal-import
 
-OUTPUT_CSV = "pilot_results.csv"
+OUTPUT_CSV = RESULTS_DIR / "pilot_results.csv"
 
 
 def main():
-    manifest = pd.read_csv("pilot_manifest.csv")
+    manifest = pd.read_csv(RESULTS_DIR / "pilot_manifest.csv")
     print(f"Pilot manifest: {len(manifest)} images, "
           f"{manifest['true_label'].nunique()} classes")
 

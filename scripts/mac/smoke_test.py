@@ -1,23 +1,29 @@
 """
-mac_smoke_test.py — Apple Silicon smoke test using MLX.
+smoke_test.py — Apple Silicon smoke test using MLX.
 
 Uses the 4-bit MLX port of MedGemma (mlx-community/medgemma-4b-it-4bit, ~3GB),
 which fits comfortably in 16GB unified memory.
 
 Run:
     source .venv/bin/activate
-    python mac_smoke_test.py
+    python scripts/mac/smoke_test.py
 
 What success looks like:
     - Model loads in ~30s (first run downloads ~3GB; subsequent runs use cache)
     - One inference takes ~10-30s on M1/M2
-    - smoke_test_output.txt is written with non-empty model output
+    - results/smoke_test_output.txt is written with non-empty model output
 """
 
 import sys
 import time
 from pathlib import Path
 import pandas as pd
+
+# Repo-anchored paths + put src/ on the import path.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+RESULTS_DIR = REPO_ROOT / "results"
+RESULTS_DIR.mkdir(exist_ok=True)
 
 # Use the 4-bit MLX quantization — community port, no gating
 MODEL_ID = "mlx-community/medgemma-4b-it-4bit"
@@ -83,7 +89,7 @@ def run_one_mlx(model, processor, image_path: str, instruction: str,
 
 def main():
     # 1. Load the manifest
-    manifest_path = Path("pilot_manifest.csv")
+    manifest_path = RESULTS_DIR / "pilot_manifest.csv"
     if not manifest_path.exists():
         print(f"ERROR: {manifest_path} not found. Run 01_download_data.py first.")
         sys.exit(1)
@@ -123,7 +129,8 @@ Final answer: <class_code>"""
     print(f"True:   {row['true_label']}  (match: {parsed == row['true_label']})")
 
     # 6. Save
-    with open("smoke_test_output.txt", "w") as f:
+    out_path = RESULTS_DIR / "smoke_test_output.txt"
+    with open(out_path, "w") as f:
         f.write(f"backend: mlx-vlm\n")
         f.write(f"model: {MODEL_ID}\n")
         f.write(f"image_id: {row['image_id']}\n")
@@ -132,8 +139,8 @@ Final answer: <class_code>"""
         f.write(f"parsed: {parsed} ({method})\n")
         f.write(f"\n--- raw output ---\n{output}\n")
 
-    print("\nSaved smoke_test_output.txt")
-    print("\n*** Smoke test passed. You can now run mac_run_pilot.py ***")
+    print(f"\nSaved {out_path}")
+    print("\n*** Smoke test passed. You can now run scripts/mac/run_pilot.py ***")
 
 
 if __name__ == "__main__":

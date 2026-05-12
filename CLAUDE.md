@@ -43,13 +43,14 @@ inspection step on both.
 
 **What's NOT done yet:**
 - The pilot has not been *run* end-to-end yet (or has been run but results not
-  reviewed — check `pilot_inspection.csv` to know which)
+  reviewed — check `results/pilot_inspection.csv` to know which)
 - Few-shot prompts (P5–P8) are written but not used yet — they need 3 demo images
   selected and wired in
-- Full-experiment runner (`05_run_full.py`) for all 8 prompts × balanced 350-image
-  test set — to be written after the pilot is validated
+- Full-experiment runner (`scripts/05_run_full.py`) for all 8 prompts × balanced
+  350-image test set — to be written after the pilot is validated
 - Metrics computation (macro-F1, balanced accuracy, per-class F1, confusion matrices) —
-  basic version is in `04_inspect.py`; a proper metrics module comes after the full run
+  basic version is in `scripts/04_inspect.py`; a proper metrics module comes after
+  the full run
 - Second model for cross-architecture validation (LLaVA-Med 8B or Qwen3-VL 8B)
 
 ---
@@ -65,13 +66,13 @@ The same pilot can run on either, with different backends:
 | Quality             | Slightly degraded (4-bit)         | Full precision                        |
 | Speed               | ~10–30s/inference                 | ~1–3s/inference                       |
 | Memory              | ~6GB peak                         | ~12GB peak                            |
-| Smoke test script   | `mac_smoke_test.py`               | `02_smoke_test.py`                    |
-| Pilot runner        | `mac_run_pilot.py`                | `03_run_pilot.py` (via `run_pilot.sh`)|
-| Setup guide         | `mac_quickstart.md`               | `00_setup.md`                         |
+| Smoke test script   | `scripts/mac/smoke_test.py`       | `scripts/dcc/02_smoke_test.py`        |
+| Pilot runner        | `scripts/mac/run_pilot.py`        | `scripts/dcc/03_run_pilot.py` (via `scripts/dcc/run_pilot.sh`) |
+| Setup guide         | `docs/setup_mac.md`               | `docs/setup_dcc.md`                   |
 
 The **Mac path is for proving the pipeline works** (fast iteration, easy debugging).
 The **DCC path is for real measurements** (full precision, scale to many images).
-**Inspection (`04_inspect.py`) is identical for both.**
+**Inspection (`scripts/04_inspect.py`) is identical for both.**
 
 Default to the Mac path during development unless the user says otherwise.
 
@@ -80,54 +81,77 @@ Default to the Mac path during development unless the user says otherwise.
 ## File map
 
 ```
-README.md              — one-page overview
-CLAUDE.md              — this file (Claude Code context)
+README.md                          — one-page overview
+CLAUDE.md                          — this file (Claude Code context)
+LICENSE
+.gitignore
 
-mac_quickstart.md      — Mac setup: brew, venv, mlx-vlm, kaggle/HF auth
-00_setup.md            — DCC setup: modules, conda, Slurm, scratch space
+docs/
+  setup_mac.md                     — Mac setup: brew, venv, mlx-vlm, kaggle/HF auth
+  setup_dcc.md                     — DCC setup: modules, conda, Slurm, scratch space
 
-01_download_data.py    — [shared] HAM10000 download + balanced manifest builder
-prompts.py             — [shared] All 8 prompt conditions (DCC chat-template format)
-parser.py              — [shared] Free-text → class code, with synonyms
-04_inspect.py          — [shared] Parse pilot_results.csv → summary + inspection.csv
+src/                               — importable modules; on sys.path via each
+                                     script's bootstrap block
+  prompts.py                       — All 8 prompt conditions (chat-template format)
+  parser.py                        — Free-text → class code, with synonyms
 
-mac_smoke_test.py      — Mac: 1 image, 1 prompt — the gate before full pilot
-mac_run_pilot.py       — Mac: 21 × 2 inferences via mlx-vlm
+scripts/
+  01_download_data.py              — [shared] HAM10000 download + manifest builder
+  04_inspect.py                    — [shared] Parse pilot_results.csv → summary
+  mac/
+    smoke_test.py                  — Mac: 1 image, 1 prompt — gate before pilot
+    run_pilot.py                   — Mac: full pilot via mlx-vlm
+    run_binary.py                  — Mac: mel vs not_mel side experiment
+  dcc/
+    02_smoke_test.py               — DCC: 1 image, 1 prompt
+    03_run_pilot.py                — DCC: full pilot via transformers
+    run_pilot.sh                   — Slurm batch script for 03_run_pilot.py
+  compare/
+    compare_pilot.py               — Run P1-P4 for a single model → results/pilot_<tag>.csv
+    compare_inspect.py             — Aggregate all results/pilot_*.csv → comparison table
 
-02_smoke_test.py       — DCC: 1 image, 1 prompt — same role on the cluster
-03_run_pilot.py        — DCC: 21 × 2 inferences via transformers
-run_pilot.sh           — Slurm batch script for 03_run_pilot.py
+results/                           — all generated CSVs and logs (kept under git)
+  pilot_manifest.csv               — 21 selected images + true labels + paths
+  pilot_manifest_mini.csv          — smaller manifest for quick comparisons
+  pilot_results.csv                — raw model outputs (one row per image × prompt)
+  pilot_inspection.csv             — parsed labels + correctness + notes column
+  pilot_<tag>.csv                  — per-model outputs from compare_pilot.py
+  compare_inspection.csv           — combined comparison table
+  smoke_test_output.txt
+  *_run.log                        — captured run logs
+
+data/                              — gitignored, large
+  ham10000/                        — dataset (~3GB)
 ```
 
-**Generated artifacts** (all gitignored, all in repo root):
-- `data/ham10000/` — dataset (large, ~3GB)
-- `pilot_manifest.csv` — 21 selected images + true labels + paths
-- `smoke_test_output.txt` — single-image sanity check output
-- `pilot_results.csv` — raw model outputs (one row per image × prompt)
-- `pilot_inspection.csv` — parsed labels + correctness + notes column for hand review
+**Path conventions:** every script anchors to `REPO_ROOT = Path(__file__).resolve().parents[N]`
+at the top and reads/writes under `RESULTS_DIR = REPO_ROOT / "results"` and
+`DATA_DIR = REPO_ROOT / "data" / "ham10000"`. This lets scripts run from any CWD.
+Imports of `prompts` / `parser` work because each script prepends `REPO_ROOT/src` to
+`sys.path`.
 
 ---
 
 ## How the pipeline is wired
 
 ```
-01_download_data.py
+scripts/01_download_data.py
         ↓
-   pilot_manifest.csv  (21 rows: image_id, true_label, image_path)
+   results/pilot_manifest.csv  (21 rows: image_id, true_label, image_path)
         ↓
-   ┌────────────────┬─────────────────┐
-   ↓                                  ↓
-mac_smoke_test.py             02_smoke_test.py        (one-image gate)
-   ↓                                  ↓
-mac_run_pilot.py              03_run_pilot.py          (21 × 2 inferences)
-   ↓                                  ↓
-   └────────────────┬─────────────────┘
-                    ↓
-              pilot_results.csv  (raw outputs, never re-parsed downstream)
-                    ↓
-              04_inspect.py
-                    ↓
-              pilot_inspection.csv  (parsed labels + notes; open in spreadsheet)
+   ┌──────────────────────────────┬─────────────────────────────┐
+   ↓                                                            ↓
+scripts/mac/smoke_test.py                       scripts/dcc/02_smoke_test.py     (one-image gate)
+   ↓                                                            ↓
+scripts/mac/run_pilot.py                        scripts/dcc/03_run_pilot.py      (21 × 2 inferences)
+   ↓                                                            ↓
+   └──────────────────────────────┬─────────────────────────────┘
+                                  ↓
+                  results/pilot_results.csv  (raw outputs, never re-parsed downstream)
+                                  ↓
+                          scripts/04_inspect.py
+                                  ↓
+                  results/pilot_inspection.csv  (parsed labels + notes)
 ```
 
 Important: **parsing is decoupled from generation.** Raw outputs are persisted, so the
@@ -227,6 +251,10 @@ whenever you discover a new output pattern in the wild.
 - **Numeric file prefixes** (`01_…`, `02_…`) can't be imported normally; we use
   `importlib` for cross-script reuse on DCC. Keep the prefixes anyway — they communicate
   execution order.
+- **Bootstrap blocks at the top of each script** set `REPO_ROOT`, add `src/` to
+  `sys.path`, and define `RESULTS_DIR`. Keep them — they're what lets scripts run from
+  any CWD. The `parents[N]` index is layout-sensitive: scripts/foo.py uses `parents[1]`,
+  scripts/mac/foo.py uses `parents[2]`.
 
 ---
 
@@ -255,8 +283,8 @@ Decisions made so far that are easy to second-guess later. Don't overturn withou
 
 ## What you (Claude Code) should do by default
 
-- **Default to the Mac path** (`mac_*.py`) unless the user has clearly moved to DCC.
-- **Always run `parser.py` self-tests** before claiming the parser is healthy.
+- **Default to the Mac path** (`scripts/mac/`) unless the user has clearly moved to DCC.
+- **Always run `python src/parser.py` self-tests** before claiming the parser is healthy.
 - **Never silently drop PARSE_FAIL rows.** They're data.
 - **Preserve raw outputs.** If a script writes parsed-only results, fix the script.
 - **Keep the 8-condition factorial intact.** Don't add a 9th condition without clearing
@@ -280,12 +308,12 @@ In rough order of likelihood, what the user will probably ask for next:
 3. **Pick few-shot demos and wire them into P5–P8.** Need to load 3 specific image_ids
    from the manifest, build a `_few_shot_preamble`-compatible call, run the pilot for
    those conditions.
-4. **Write `05_run_full.py`** — all 8 prompts × balanced ~350-image test set (50 per
-   class). Should follow the same write-as-you-go CSV pattern as `03_run_pilot.py` so
-   partial runs survive crashes.
-5. **Build a real metrics module** (`metrics.py`) — macro-F1, balanced accuracy,
+4. **Write `scripts/05_run_full.py`** — all 8 prompts × balanced ~350-image test set
+   (50 per class). Should follow the same write-as-you-go CSV pattern as
+   `scripts/dcc/03_run_pilot.py` so partial runs survive crashes.
+5. **Build a real metrics module** (`src/metrics.py`) — macro-F1, balanced accuracy,
    per-class F1, confusion matrix, parse-failure rate, bootstrap CIs. The one in
-   `04_inspect.py` is a quick-look, not a final-results version.
+   `scripts/04_inspect.py` is a quick-look, not a final-results version.
 6. **Add a second model** — LLaVA-Med 8B or Qwen3-VL 8B. New runner, same prompts,
    same parser. Cross-model comparison is the contribution.
 7. **Visualize results** — per-axis main effects, interaction plot (shots × CoT etc.),
@@ -318,19 +346,19 @@ In rough order of likelihood, what the user will probably ask for next:
 source .venv/bin/activate
 
 # Self-test the parser
-python parser.py
+python src/parser.py
 
 # Verify MLX sees the GPU
 python -c "import mlx.core as mx; print(mx.default_device())"
 
 # Re-build pilot manifest (no re-download)
-rm -f pilot_manifest.csv && python 01_download_data.py
+rm -f results/pilot_manifest.csv && python scripts/01_download_data.py
 
 # Quick stats on pilot results
-python -c "import pandas as pd; df=pd.read_csv('pilot_results.csv'); print(df.groupby('prompt_id').size())"
+python -c "import pandas as pd; df=pd.read_csv('results/pilot_results.csv'); print(df.groupby('prompt_id').size())"
 
 # Open inspection CSV in Numbers (Mac)
-open pilot_inspection.csv
+open results/pilot_inspection.csv
 
 # Watch a Slurm job (DCC)
 watch -n 5 squeue -u $USER
@@ -340,17 +368,17 @@ watch -n 5 squeue -u $USER
 
 ## When the user says…
 
-- *"run the smoke test"* → `python mac_smoke_test.py` (or `02_smoke_test.py` on DCC)
-- *"run the pilot"* → smoke test first, then `python mac_run_pilot.py`
-- *"inspect the results"* → `python 04_inspect.py` then open `pilot_inspection.csv`
-- *"the prompt isn't working"* → look at `pilot_inspection.csv`'s `raw_output` column,
-  diagnose, then edit `prompts.py` (or `mac_run_pilot.py`'s `p4_inputs()` for the Mac
-  pilot), rerun, re-inspect
+- *"run the smoke test"* → `python scripts/mac/smoke_test.py` (or `scripts/dcc/02_smoke_test.py` on DCC)
+- *"run the pilot"* → smoke test first, then `python scripts/mac/run_pilot.py`
+- *"inspect the results"* → `python scripts/04_inspect.py` then open `results/pilot_inspection.csv`
+- *"the prompt isn't working"* → look at `results/pilot_inspection.csv`'s `raw_output`
+  column, diagnose, then edit `src/prompts.py` (or `scripts/mac/run_pilot.py`'s `p4_inputs()`
+  for the Mac pilot), rerun, re-inspect
 - *"add few-shot"* → wire P5–P8 with 3 fixed demo images from the manifest
-- *"scale up"* → write `05_run_full.py` with all 8 prompts × balanced 350-image set
+- *"scale up"* → write `scripts/05_run_full.py` with all 8 prompts × balanced 350-image set
 - *"add another model"* → new runner file, same prompts, same parser, write outputs to
-  a model-specific CSV (e.g., `pilot_results_llavamed.csv`)
-- *"compute metrics"* → for now, `04_inspect.py`. For final analysis, write `metrics.py`.
+  a model-specific CSV (e.g., `results/pilot_llavamed.csv`)
+- *"compute metrics"* → for now, `scripts/04_inspect.py`. For final analysis, write `src/metrics.py`.
 
 ---
 

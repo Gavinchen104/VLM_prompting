@@ -3,19 +3,24 @@ compare_inspect.py — Side-by-side comparison of multiple model results
 across the 4 zero-shot prompt conditions (P1-P4).
 
 Reads:
-    pilot_medgemma.csv, pilot_qwen.csv, ... (any pilot_*.csv with the
-    canonical schema: model, image_id, true_label, prompt_id, raw_output, latency_s)
+    results/pilot_medgemma.csv, results/pilot_qwen.csv, ... (any results/pilot_*.csv
+    with the canonical schema: model, image_id, true_label, prompt_id, raw_output, latency_s)
 
 Writes:
-    compare_inspection.csv  — combined parsed table
+    results/compare_inspection.csv — combined parsed table
     Console: per-(model, prompt) summary, class-diversity per condition,
              interaction-style 2x2 view (role × CoT)
 """
 
 import sys
-import glob
 from pathlib import Path
 import pandas as pd
+
+# Repo-anchored paths + put src/ on the import path.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+RESULTS_DIR = REPO_ROOT / "results"
+
 from parser import parse
 
 
@@ -31,7 +36,7 @@ REQUIRED_COLS = {"model", "image_id", "true_label", "prompt_id", "raw_output", "
 
 
 def load_all():
-    candidates = sorted(glob.glob("pilot_*.csv"))
+    candidates = sorted(RESULTS_DIR.glob("pilot_*.csv"))
     files, dfs = [], []
     for f in candidates:
         try:
@@ -41,7 +46,7 @@ def load_all():
         if not REQUIRED_COLS.issubset(df.columns):
             continue
         df["raw_output"] = df["raw_output"].fillna("").astype(str)
-        files.append(f)
+        files.append(str(f))
         dfs.append(df)
     if not dfs:
         print("No model-result CSVs found (need columns: "
@@ -127,8 +132,9 @@ def main():
     out_cols = ["model_short", "image_id", "true_label", "prompt_id",
                 "parsed_label", "parse_method", "correct", "latency_s",
                 "raw_output"]
-    df[out_cols].to_csv("compare_inspection.csv", index=False)
-    print(f"\nWrote compare_inspection.csv ({len(df)} rows)")
+    out_path = RESULTS_DIR / "compare_inspection.csv"
+    df[out_cols].to_csv(out_path, index=False)
+    print(f"\nWrote {out_path} ({len(df)} rows)")
 
 
 if __name__ == "__main__":

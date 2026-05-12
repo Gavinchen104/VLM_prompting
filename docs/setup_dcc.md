@@ -126,10 +126,10 @@ This is critical: compute nodes on DCC may not have internet. Do all downloads h
 cd $WORK
 
 # Copy the project files (assuming you scp'd this folder up)
-ls   # you should see: 01_download_data.py, 02_smoke_test.py, ...
+ls   # you should see: README.md, src/, scripts/, results/, ...
 
 # 4a. Download HAM10000 (a few hundred MB)
-python 01_download_data.py
+python scripts/01_download_data.py
 
 # 4b. Pre-download the model weights (this caches into $HF_HOME)
 # This is just a small Python snippet — it pulls ~9GB.
@@ -150,14 +150,14 @@ Before submitting a Slurm batch job, prove it all works in an interactive sessio
 srun --partition=gpu-common --gres=gpu:1 --time=01:00:00 --mem=24G --pty bash
 cd $WORK
 conda activate medvlm
-python 02_smoke_test.py
+python scripts/dcc/02_smoke_test.py
 ```
 
 Expected output:
 - Model loads (takes ~30s)
 - One HAM10000 image is processed
 - You see model output text in the terminal
-- A file `smoke_test_output.txt` is saved
+- A file `results/smoke_test_output.txt` is saved
 
 If this works, **you're 80% of the way there.** Exit the interactive session.
 
@@ -167,14 +167,14 @@ If this works, **you're 80% of the way there.** Exit the interactive session.
 
 ```bash
 cd $WORK
-sbatch run_pilot.sh
+sbatch scripts/dcc/run_pilot.sh
 squeue -u $USER       # see your job
 # logs go to slurm-<jobid>.out and slurm-<jobid>.err
 ```
 
 The job runs 21 images × 2 prompts = 42 inferences. Should take 5–15 minutes on any modern GPU.
 
-When it finishes, you'll have `pilot_results.csv` with raw outputs.
+When it finishes, you'll have `results/pilot_results.csv` with raw outputs.
 
 ---
 
@@ -183,10 +183,10 @@ When it finishes, you'll have `pilot_results.csv` with raw outputs.
 Pull the CSV back to your laptop or open it in Jupyter on DCC:
 
 ```bash
-python 04_inspect.py
+python scripts/04_inspect.py
 ```
 
-This prints a summary and writes `pilot_inspection.csv` with parsed labels and a `notes` column for you to fill in by hand.
+This prints a summary and writes `results/pilot_inspection.csv` with parsed labels and a `notes` column for you to fill in by hand.
 
 **Look at every row.** Specifically check:
 - Did the model use the `Final answer: <class>` format?
@@ -203,7 +203,7 @@ This is the most important step. The numbers don't matter yet — the *behavior*
 | Problem | Likely cause | Fix |
 |---|---|---|
 | `OSError: You are trying to access a gated repo` | HF access not approved | Check email; visit model page |
-| `CUDA out of memory` | GPU too small for bf16 | Use 4-bit quantization (see notes in 02_smoke_test.py) |
+| `CUDA out of memory` | GPU too small for bf16 | Use 4-bit quantization (see notes in scripts/dcc/02_smoke_test.py) |
 | `No module named 'transformers'` | Conda env not activated | `conda activate medvlm` |
 | Model download hangs on compute node | No internet on that partition | Download from login node first |
 | `Permission denied` on kaggle.json | Wrong file permissions | `chmod 600 ~/.kaggle/kaggle.json` |

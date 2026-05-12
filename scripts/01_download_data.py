@@ -13,7 +13,7 @@ What this does:
 After this runs you should see:
     data/ham10000/HAM10000_metadata.csv
     data/ham10000/HAM10000_images_part_1/  (and part_2)
-    pilot_manifest.csv  (21 rows)
+    results/pilot_manifest.csv  (21 rows)
 """
 
 import os
@@ -24,12 +24,17 @@ import subprocess
 from pathlib import Path
 import pandas as pd
 
+# Repo-anchored paths so the script works from any CWD.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+RESULTS_DIR = REPO_ROOT / "results"
+RESULTS_DIR.mkdir(exist_ok=True)
+
 # ---------- Config ----------
 SEED = 42
 PER_CLASS = 3                      # 3 per class × 7 classes = 21 pilot images
-DATA_DIR = Path("data/ham10000")
+DATA_DIR = REPO_ROOT / "data" / "ham10000"
 KAGGLE_DATASET = "kmader/skin-cancer-mnist-ham10000"
-MANIFEST = Path("pilot_manifest.csv")
+MANIFEST = RESULTS_DIR / "pilot_manifest.csv"
 
 
 def run(cmd, **kwargs):

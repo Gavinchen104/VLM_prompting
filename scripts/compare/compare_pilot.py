@@ -1,13 +1,16 @@
 """
 compare_pilot.py — Run all 4 zero-shot prompts (P1-P4) on a mini manifest
-for a single model, write results to a model-tagged CSV.
+for a single model, write results to a model-tagged CSV under results/.
 
 Usage:
-    python compare_pilot.py <model_id> <output_csv> [--manifest pilot_manifest_mini.csv]
+    python scripts/compare/compare_pilot.py <model_id> <output_name> [--manifest <path>]
+
+The output_name is interpreted relative to results/ unless it's an absolute path
+or already contains a directory component.
 
 Examples:
-    python compare_pilot.py mlx-community/medgemma-4b-it-4bit pilot_medgemma.csv
-    python compare_pilot.py mlx-community/Qwen2.5-VL-3B-Instruct-4bit pilot_qwen.csv
+    python scripts/compare/compare_pilot.py mlx-community/medgemma-4b-it-4bit pilot_medgemma.csv
+    python scripts/compare/compare_pilot.py mlx-community/Qwen2.5-VL-3B-Instruct-4bit pilot_qwen.csv
 
 Designed to be run in separate Python invocations per model so memory
 is freed between runs.
@@ -21,6 +24,12 @@ import traceback
 from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
+
+# Repo-anchored paths + put src/ on the import path.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+RESULTS_DIR = REPO_ROOT / "results"
+RESULTS_DIR.mkdir(exist_ok=True)
 
 from prompts import CLASSES_DESC, CLASSES_SHORT
 
@@ -117,9 +126,14 @@ def run_one_mlx(model, processor, image_path, instruction, system, max_tokens):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("model_id")
-    ap.add_argument("output_csv")
-    ap.add_argument("--manifest", default="pilot_manifest_mini.csv")
+    ap.add_argument("output_csv", help="Bare filename (goes under results/) or full path")
+    ap.add_argument("--manifest", default=str(RESULTS_DIR / "pilot_manifest_mini.csv"))
     args = ap.parse_args()
+
+    # If output_csv is a bare filename, put it under results/.
+    out_path = Path(args.output_csv)
+    if not out_path.is_absolute() and out_path.parent == Path("."):
+        out_path = RESULTS_DIR / out_path
 
     manifest = pd.read_csv(args.manifest)
     print(f"Manifest: {args.manifest} ({len(manifest)} images)")
@@ -131,7 +145,7 @@ def main():
     model, processor = load_model_mlx(args.model_id)
 
     fieldnames = ["model", "image_id", "true_label", "prompt_id", "raw_output", "latency_s"]
-    with open(args.output_csv, "w", newline="") as f:
+    with open(out_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -161,7 +175,7 @@ def main():
                 pbar.update(1)
         pbar.close()
 
-    print(f"\nDone. Wrote {args.output_csv}")
+    print(f"\nDone. Wrote {out_path}")
 
 
 if __name__ == "__main__":
