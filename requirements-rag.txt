@@ -1,0 +1,5 @@
+# RAG-only dependencies (Phase 0 of RAG_DESIGN.md).
+# The baseline Mac/DCC deps are documented in CLAUDE.md and the setup guides;
+# this file only pins what RAG adds on top.
+faiss-cpu>=1.7.4
+open_clip_torch>=2.24.0
