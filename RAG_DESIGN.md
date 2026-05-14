@@ -4,8 +4,7 @@ This document describes how to add **retrieval-augmented generation (RAG)** to
 the existing prompting pipeline for HAM10000 dermoscopy classification with
 MedGemma 4B.
 
-It assumes the current pipeline (see [CLAUDE.md](CLAUDE.md)) and
-extends it without breaking the 7-class factorial of P1–P8.
+
 
 ---
 
